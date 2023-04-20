@@ -25,16 +25,17 @@
     "@semantic-release/github": "^7.1.1",
     "@semantic-release/npm": "^7.0.6",
     "ava": "^3.11.1",
+    "kalman-filter": "^1.10.0",
+    "matrix-inverse": "^2.0.0",
+    "mean-average-precision": "^1.8.0",
     "nyc": "^15.1.0",
     "semantic-release": "^17.2.2",
     "xo": "^0.32.0"
   },
   "dependencies": {
-    "kalman-filter": "^1.10.0",
-    "matrix-inverse": "^2.0.0",
-    "mean-average-precision": "^1.8.0",
     "munkres-js": "^1.2.2",
-    "object-tracking-measure": "^1.2.2"
+    "object-tracking-measure": "^1.5.0",
+    "simple-linalg": "^1.0.1"
   },
   "release": {
     "verifyConditions": [
