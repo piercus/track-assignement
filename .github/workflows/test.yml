@@ -13,26 +13,8 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: 18
-
-      - name: SSH Setup
-        uses: webfactory/ssh-agent@v0.5.4
-        with:
-          ssh-private-key: ${{ secrets.SSH_CI_DEPLOY_KEY }}
           
       - name: Authenticate with private NPM package
         run: echo "//registry.npmjs.org/:_authToken=${{ secrets.NPM_TOKEN }}" > ~/.npmrc
       - run: npm ci
-      - run: npm run coverage-test
-      - name: Nyc Code Coverage
-        uses: tintef/nyc-reporter-action@0.2.5
-        with:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          REPORTER: 'cobertura'
-          SKIP_COVERAGE_FOLDER: true 
-
-      - name: Upload Code Coverage to Covecov
-        uses: codecov/codecov-action@v3
-        with:
-          token: ${{ secrets.CODECOV_TOKEN }}
-          fail_ci_if_error: true
-          verbose: true       
+      - run: npm test
