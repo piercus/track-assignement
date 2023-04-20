@@ -3,9 +3,8 @@ const {KalmanFilter, State} = require('kalman-filter');
 const GlobalMatching = require('../../lib/global-matching.js');
 const MatchingStage = require('../../lib/matching-stage.js');
 const iou = require('mean-average-precision').iou;
-const cosDist = require('../../lib/utils/cos-distance.js');
 const deepCopy = require('../../lib/utils/deep-copy');
-const {identity} = require('simple-linalg');
+const {identity, cosSimilarity} = require('simple-linalg');
 
 // IOU methods
 
@@ -149,7 +148,7 @@ test('With final matching stage', t => {
 					return detection.appearance;
 				}),
 				fn: (mappedTrack, mappedDetection) => {
-					return cosDist(mappedTrack, mappedDetection);
+					return cosSimilarity(mappedTrack, mappedDetection);
 				}
 			}
 		},
@@ -225,7 +224,7 @@ test('Combined metrics', t => {
 				mapDetection: ((detection, _) => {
 					return detection.appearance;
 				}),
-				fn: (mappedTrack, mappedDetection) => cosDist(mappedTrack, mappedDetection)
+				fn: (mappedTrack, mappedDetection) => cosSimilarity(mappedTrack, mappedDetection)
 			}
 		},
 		stages: [{
@@ -347,7 +346,7 @@ test('Multi sensors', t => {
 				mapDetection: ((detection, _) => {
 					return detection.appearance;
 				}),
-				fn: (mappedTrack, mappedDetection) => cosDist(mappedTrack, mappedDetection)
+				fn: (mappedTrack, mappedDetection) => cosSimilarity(mappedTrack, mappedDetection)
 			}
 		},
 		stages: [{

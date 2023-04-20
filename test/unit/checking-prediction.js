@@ -1,8 +1,8 @@
 const test = require('ava');
 
 const {KalmanFilter, State} = require('kalman-filter');
+const { cosSimilarity } = require('simple-linalg');
 const MatchingStage = require('../../lib/matching-stage.js');
-const cosDist = require('../../lib/utils/cos-distance.js');
 
 // Test: Check that when a track is lost on few frames, the prediction is still made
 
@@ -105,7 +105,7 @@ test('Check prediction steps', t => {
 				mapDetection: ((detection, _) => {
 					return detection.appearance;
 				}),
-				fn: (mappedTrack, mappedDetection) => cosDist(mappedTrack, mappedDetection)
+				fn: (mappedTrack, mappedDetection) => cosSimilarity(mappedTrack, mappedDetection)
 			}
 		},
 		order: ['appearance', 'kf'],

@@ -2,9 +2,8 @@ const test = require('ava');
 // Const boxToXYPosition = require('@alezanai/belley-rush');
 const {KalmanFilter, State} = require('kalman-filter');
 const MatchingStage = require('../../lib/matching-stage.js');
-const cosDist = require('../../lib/utils/cos-distance.js');
 const iou = require('mean-average-precision').iou;
-const {identity} = require('simple-linalg');
+const {identity, cosSimilarity} = require('simple-linalg');
 
 // Global variables useful for the tests
 
@@ -213,7 +212,7 @@ test('Order of the metrics', t => {
 				mapDetection: ((detection, _) => {
 					return detection.appearance;
 				}),
-				fn: (mappedTrack, mappedDetection) => cosDist(mappedTrack, mappedDetection)
+				fn: (mappedTrack, mappedDetection) => cosSimilarity(mappedTrack, mappedDetection)
 			}
 		},
 		order: ['appearance', 'kf'],
@@ -304,7 +303,7 @@ test('More metrics', t => {
 					mapDetection: ((detection, _) => {
 						return detection.appearance;
 					}),
-					fn: (mappedTrack, mappedDetection) => cosDist(mappedTrack, mappedDetection)
+					fn: (mappedTrack, mappedDetection) => cosSimilarity(mappedTrack, mappedDetection)
 				}
 			},
 			lambdas: {
@@ -384,7 +383,7 @@ test('Non-Max-Suppression filter', t => {
 					mapDetection: ((detection, _) => {
 						return detection.appearance;
 					}),
-					fn: (mappedTrack, mappedDetection) => cosDist(mappedTrack, mappedDetection)
+					fn: (mappedTrack, mappedDetection) => cosSimilarity(mappedTrack, mappedDetection)
 				}
 			},
 			lambdas: {
