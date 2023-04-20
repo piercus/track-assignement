@@ -1,0 +1,84 @@
+{
+  "name": "track-assignement",
+  "version": "0.0.1",
+  "description": "Track assignement in JavaScript",
+  "main": "index.js",
+  "scripts": {
+    "test": "xo && ava",
+    "coverage-test": "nyc --reporter=text --reporter=cobertura ava",
+    "semantic-release": "semantic-release"
+  },
+  "keywords": [
+    "deep sort",
+    "matching cascade",
+    "tracks",
+    "detections",
+    "kalman filter",
+    "metrics",
+    "appearance",
+    "match"
+  ],
+  "author": "Pierre Colle <piercus@gmail.com>",
+  "license": "MIT",
+  "devDependencies": {
+    "@semantic-release/git": "^9.0.0",
+    "@semantic-release/github": "^7.1.1",
+    "@semantic-release/npm": "^7.0.6",
+    "ava": "^3.11.1",
+    "nyc": "^15.1.0",
+    "semantic-release": "^17.2.2",
+    "xo": "^0.32.0"
+  },
+  "dependencies": {
+    "kalman-filter": "^1.10.0",
+    "matrix-inverse": "^2.0.0",
+    "mean-average-precision": "^1.8.0",
+    "munkres-js": "^1.2.2",
+    "object-tracking-measure": "^1.2.2"
+  },
+  "release": {
+    "verifyConditions": [
+      "@semantic-release/github",
+      "@semantic-release/git"
+    ],
+    "getLastRelease": "@semantic-release/github",
+    "prepare": [
+      "@semantic-release/npm",
+      "@semantic-release/git"
+    ],
+    "publish": [
+      {
+        "path": "@semantic-release/npm",
+        "npmPublish": true
+      },
+      "@semantic-release/github"
+    ]
+  },
+  "files": [
+    "index.js",
+    "lib"
+  ],
+  "xo": {
+    "rules": {
+      "no-multi-assign": 0,
+      "unicorn/no-reduce": 0,
+      "import/no-unresolved": 0,
+      "ava/prefer-async-await": 0,
+      "ava/no-skip-test": 1,
+      "ava/no-import-test-files": 0,
+      "camelcase": [
+        0,
+        {
+          "ignoreDestructuring": true
+        }
+      ],
+      "valid-jsdoc": [
+        1,
+        {
+          "requireParamDescription": false,
+          "requireReturnDescription": false
+        }
+      ]
+    }
+  }
+}
