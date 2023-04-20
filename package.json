@@ -67,6 +67,7 @@
       "ava/prefer-async-await": 0,
       "ava/no-skip-test": 1,
       "ava/no-import-test-files": 0,
+      "unicorn/no-fn-reference-in-iterator": 0,
       "camelcase": [
         0,
         {

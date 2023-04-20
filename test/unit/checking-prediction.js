@@ -1,7 +1,7 @@
 const test = require('ava');
 
 const {KalmanFilter, State} = require('kalman-filter');
-const { cosSimilarity } = require('simple-linalg');
+const {cosSimilarity} = require('simple-linalg');
 const MatchingStage = require('../../lib/matching-stage.js');
 
 // Test: Check that when a track is lost on few frames, the prediction is still made
