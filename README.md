@@ -1,9 +1,8 @@
 # Track Assignement
 
-This library is inspired by [Deep Sort](https://arxiv.org/pdf/1703.07402.pdf) algorithm in js
+This library is a core library made to do detection vs track assignement as done in [Deep Sort](https://arxiv.org/pdf/1703.07402.pdf)
 
-It is compatible with the [Kalman Filter](https://www.npmjs.com/package/kalman-filter) library.
-
+It is made to be used with the [Kalman Filter](https://www.npmjs.com/package/kalman-filter) library.
 
 ## Installation
 
@@ -70,25 +69,25 @@ The library proposes two core modules:
           fn: ((predicted, detection, opts) => predicted.malahanobis(detection))
        },
       appearance: {
-    dimension: 128,
-    gallerySize: 300,
-    fn: "cos", // by default dist is cos
-    distMode: gallerySize //by default gallerySize (could use a mobile average)
-  },
+        dimension: 128,
+        gallerySize: 300,
+        fn: "cos", // by default dist is cos
+        distMode: gallerySize //by default gallerySize (could use a mobile average)
+      },
     },
     lambdas: {
-    "kf": 0,
-    "appearance": 1 // appearance.lambda + mahalanobis.lambda = 1
+      "kf": 0,
+      "appearance": 1 // appearance.lambda + mahalanobis.lambda = 1
     },
     thresholds: {
-    "kf": 0.5,
-    "appearance": 0.5
+      "kf": 0.5,
+      "appearance": 0.5
     }
   });
 
   const detections = [
-  {location: [22, 33, 20, 20], appearance: [<v0>, ..., <v127>]}, // We here use an appearance vector with 128 features
-  {location: [22, 22, 12, 24], appearance: [<v0>, ..., <v127>]}
+    {location: [22, 33, 20, 20], appearance: [<v0>, ..., <v127>]}, // We here use an appearance vector with 128 features
+    {location: [22, 22, 12, 24], appearance: [<v0>, ..., <v127>]}
   ];
 
   const tracks = [
@@ -280,95 +279,4 @@ const globalMatching = new GlobalMatching({
 });
 
 const {tracks: newTracks} = GlobalMatching.track({detectionsByIteration, tracks});
-
-
-```
-
-### Deep Sort
-
-Perform Deep Sort on a list of given tracks and a list of detections (matching cascade + post IOU matching on remaining unconfirmed tracks)
-
-```js
-const {DeepSort} = require('deep-sort');
-
-const deepSort = new DeepSort({
-  mahalanobis: {
-    threshold: 0.5,
-    lambda: 0,
-    kalmanFilter: <kalmanFilter of kalmanFilter opts>
-  },
-  appearance: {
-    threshold: 0.5,
-    lambda: 1, // appearance.lambda + mahalanobis.lambda = 1
-    dimension: 128,
-    gallerySize: 300,
-    dist: "cos", // by default dist is cos
-    distMode: gallerySize //by default gallerySize (could use a mobile average)
-  },
-  iou: {
-   threshold: 0.5
-  },
-  age: {
-    max: 30, // Maximum age without association for a defined track
-    min: 3, // Maximum tentative for new tracks
-    iou: 1
-  }
-});
-
-
-const detections = [{mean: [22, 33, 20, 20], appearance: [<v0>, ..., <v127>]}, {mean: [22, 33, 20, 20], appearance: [<v0>, ..., <v127>]}];
-
-const tracks = [
-     [
-			 {
-				 state: {
-					 mean: [22, 33, 20, 20],
-					 covariance: [...]
-				 },  
-				 appearance: [<v0>, ..., <v127>]
-			 },
-			 {
-				 state: {
-					 mean: [22, 33, 20, 20],
-					 covariance: [...]
-				 },  
-				 appearance: [<v0>, ..., <v127>]
-			 },
-			 {
-				 state: {
-					 mean: [22, 25, 15, 25],
-					 covariance: [...]
-				 },  
-				 appearance: [<v0>, ..., <v127>]
-			 },
-			 {
-				 state: {
-					 mean: [22, 25, 15, 25],
-					 covariance: [...]
-				 },  
-				 appearance: [<v0>, ..., <v127>]
-			 }
-
-    ],
-    [
-			{
-				state: {
-					mean: [22, 33, 14, 20],
-					covariance: [...]
-				},  
-				appearance: [<v0>, ..., <v127>]
-			},
-			null,
-			null,
-			{
-				state: {
-					mean: [22, 33, 14, 20],
-					covariance: [...]
-				},  
-				appearance: [<v0>, ..., <v127>]
-			}
-    ]
-];
-
-const newTracks = deepSort.match({detections, tracks})
 ```
