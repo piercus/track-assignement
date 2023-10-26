@@ -1,6 +1,6 @@
 {
   "name": "track-assignement",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "description": "Track assignement in JavaScript",
   "main": "index.js",
   "scripts": {
