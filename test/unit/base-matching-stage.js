@@ -1,6 +1,6 @@
 const test = require('ava');
 // Const boxToXYPosition = require('@alezanai/belley-rush');
-const AbstractMatchingStage = require('../../lib/abstract-matching-stage.js');
+const BaseMatchingStage = require('../../lib/base-matching-stage');
 const iou = require('mean-average-precision').iou;
 const {getStats: getTrackStats} = require('object-tracking-measure');
 const keysEqual = function (t, object1, object2) {
@@ -59,7 +59,7 @@ const simpleSituation = {
 	]
 };
 test('No filter', t => {
-	const stage = new AbstractMatchingStage(simpleOptions);
+	const stage = new BaseMatchingStage(simpleOptions);
 
 	const {matched: matchesSimple} = stage.match(simpleSituation);
 	t.is(matchesSimple.length, 2);
@@ -68,7 +68,7 @@ test('No filter', t => {
 });
 
 test('SortTracks', t => {
-	const stageSortTracks = new AbstractMatchingStage(Object.assign({}, simpleOptions, {
+	const stageSortTracks = new BaseMatchingStage(Object.assign({}, simpleOptions, {
 		trackSortKey: (track => Math.floor(getTrackStats({track}).age))
 	}));
 	const {matched: matchesSortTracks} = stageSortTracks.match(simpleSituation);
@@ -80,7 +80,7 @@ test('SortTracks', t => {
 });
 
 test('filter tracks', t => {
-	const stage = new AbstractMatchingStage(Object.assign({}, simpleOptions, {
+	const stage = new BaseMatchingStage(Object.assign({}, simpleOptions, {
 		trackSortKey: (track => Math.floor(getTrackStats({track}).age) >= 1 ? null : 1)
 	}));
 	const {matched} = stage.match(simpleSituation);
@@ -89,7 +89,7 @@ test('filter tracks', t => {
 });
 
 test('SortDetections', t => {
-	const stage = new AbstractMatchingStage(Object.assign({}, simpleOptions, {
+	const stage = new BaseMatchingStage(Object.assign({}, simpleOptions, {
 		detectionSortKey: (detection => detection.nonMaxSupprDistThreshold > 0.5 ? 0 : 1)
 	}));
 
@@ -101,7 +101,7 @@ test('SortDetections', t => {
 });
 
 test('FilterDetections', t => {
-	const stage = new AbstractMatchingStage(Object.assign({}, simpleOptions, {
+	const stage = new BaseMatchingStage(Object.assign({}, simpleOptions, {
 		detectionSortKey: (detection => detection.nonMaxSupprDistThreshold > 0.5 ? 1 : null)
 	}));
 	const {matched} = stage.match(simpleSituation);
@@ -142,7 +142,7 @@ const complexSituation2 = {
 };
 
 test('SortTracks and Detections', t => {
-	const stage = new AbstractMatchingStage(Object.assign({}, simpleOptions, {
+	const stage = new BaseMatchingStage(Object.assign({}, simpleOptions, {
 		trackSortKey: (track => Math.floor(getTrackStats({track}).age)),
 		detectionSortKey: (detection => detection.nonMaxSupprDistThreshold > 0.5 ? 0 : 1)
 	}));

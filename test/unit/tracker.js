@@ -224,13 +224,13 @@ test('Online tracker + dedup test with 2 view/ 1 min', t => {
 		],
 		postProcesses: [{
 			name: 'dedup',
-			distanceDedupConfs: [
+			distanceConfs: [
 				'exclusion',
 				['appearance-track', {gallerySize: 300}],
 				'age',
 				['sq-forward-mahalanobis-track', {kalmanFilterArgs, observationKey: 'xy', bhattacharyyaObsIndexes: [0, 1]}]
 			],
-			dedupStages: [{
+			stages: [{
 				lambdas: {
 					'appearance-track': 0.9,
 					'sq-forward-mahalanobis-track': 0.1,
