@@ -25,7 +25,6 @@
     "@semantic-release/github": "^7.1.1",
     "@semantic-release/npm": "^7.0.6",
     "ava": "^3.11.1",
-    "kalman-filter": "2.2",
     "matrix-inverse": "^2.0.0",
     "mean-average-precision": "^1.8.0",
     "nyc": "^15.1.0",
@@ -34,6 +33,7 @@
   },
   "dependencies": {
     "munkres-js": "^1.2.2",
+    "kalman-filter": "^2.3",
     "object-tracking-measure": "^1.7.0",
     "simple-linalg": "1.2"
   },
