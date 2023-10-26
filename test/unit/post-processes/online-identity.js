@@ -62,7 +62,7 @@ test('online-identity', t => {
 		});
 	}).reduce((a, b) => ({cost: a.cost + b.cost, weight: a.weight + b.weight}));
 
-	// console.log({cost, weight, score: cost / weight});
+	// Console.log({cost, weight, score: cost / weight});
 
 	t.true(Math.abs((cost / weight) - 0.554744) < 1e-2);
 });
