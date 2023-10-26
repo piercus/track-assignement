@@ -2,7 +2,7 @@ const test = require('ava');
 const Tracker = require('../../lib/tracker');
 const fs = require('fs');
 const path = require('path');
-const boxToXYPosition = require('../../../belley-rush/lib/utils').boxToXYPosition;
+const boxToXYPosition = require('../helpers/box-to-xy-position.js');
 
 // PART ONE: Simple tests (without generated data)
 
